@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.Utils;
+import com.udacity.jwdnd.course1.cloudstorage.data.UploadFile;
 import com.udacity.jwdnd.course1.cloudstorage.services.UploadFileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,14 @@ public class UploadFileController {
     public String uploadFile(MultipartFile uploadFile, Model model) {
         int id = uploadFileService.insert(uploadFile, 1);
         Utils.setResult(model, id >= 0, "Could not upload file.");
+
+        return "/result";
+    }
+
+    @PostMapping("/delete")
+    public String deleteFile(UploadFile uploadFile, Model model) {
+        int affectedRows = uploadFileService.delete(uploadFile.getFileId());
+        Utils.setResult(model, affectedRows > 0, "Could not delete file.");
 
         return "/result";
     }

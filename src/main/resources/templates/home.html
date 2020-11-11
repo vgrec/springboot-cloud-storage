@@ -53,7 +53,10 @@
                         <tr th:each="file: ${files}">
                             <td>
                                 <a target="_blank" class="btn btn-success">View</a>
-                                <a class="btn btn-danger">Delete</a>
+                                <form th:action="@{/file/delete}" th:object="${uploadFile}" action="#" method="post">
+                                    <input type="hidden" name="fileId" th:value="${file.fileId}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </td>
                             <th th:text="${file.fileName}" scope="row">ExampleFile.txt</th>
                         </tr>
@@ -248,6 +251,7 @@
                 $('#credential-password').val(password ? password : '');
                 $('#credentialModal').modal('show');
             }
+
 
 
 
