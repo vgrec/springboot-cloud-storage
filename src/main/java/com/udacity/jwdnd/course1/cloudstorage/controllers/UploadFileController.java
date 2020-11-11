@@ -10,10 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -34,9 +31,9 @@ public class UploadFileController {
         return "/result";
     }
 
-    @PostMapping("/delete")
-    public String deleteFile(UploadFile uploadFile, Model model) {
-        int affectedRows = uploadFileService.delete(uploadFile.getFileId());
+    @GetMapping("/delete/{fileId}")
+    public String deleteFile(@PathVariable Integer fileId, Model model) {
+        int affectedRows = uploadFileService.delete(fileId);
         Utils.setResult(model, affectedRows > 0, "Could not delete file.");
 
         return "/result";
