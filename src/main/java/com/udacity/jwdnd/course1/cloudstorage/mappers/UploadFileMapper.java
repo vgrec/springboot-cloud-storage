@@ -11,6 +11,9 @@ public interface UploadFileMapper {
     @Select("SELECT * FROM FILES WHERE userId = #{userId}")
     List<UploadFile> getFilesByUserId(int userId);
 
+    @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")
+    UploadFile getFileById(int fileId);
+
     @Insert("INSERT INTO FILES (fileId, userId, contentType, fileName, fileData, fileSize) VALUES (" +
             "#{fileId}, #{userId}, #{contentType}, #{fileName}, #{fileData}, #{fileSize}" +
             ")")

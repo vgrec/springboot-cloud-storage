@@ -40,4 +40,8 @@ public class UploadFileService {
     public int delete(int fileId) {
         return uploadFileMapper.delete(fileId);
     }
+
+    public UploadFile getFileById(int fileId){
+        return uploadFileMapper.getFileById(fileId);
+    }
 }
