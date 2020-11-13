@@ -14,10 +14,10 @@
                 <label><a href="/login">Back to Login</a></label>
             </div>
 
-            <h1 class="display-5">Sign Up</h1>
+            <h1 id="signupLabel" class="display-5">Sign Up</h1>
             <form action="#" method="POST" th:action="@{/signup}">
                 <div class="alert alert-dark" th:if="${signupSuccess}">
-                    You successfully signed up! Please continue to the <a href="/login">login</a> page.
+                    You successfully signed up! Please continue to the <a id="loginLink" href="/login">login</a> page.
                 </div>
                 <div class="alert alert-danger" th:if="${signupError} != null">
                     <span th:text="${signupError}">Example Signup Error Message</span>
@@ -42,7 +42,7 @@
                         <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Enter Password" maxlength="20" required>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button id="signupButton" type="submit" class="btn btn-primary">Sign Up</button>
             </form>
         </div>
     </body>
