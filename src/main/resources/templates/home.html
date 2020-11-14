@@ -81,7 +81,7 @@
                         <tr th:each="note: ${notes}">
                             <td>
 
-                                <button type="submit" class="btn btn-success"
+                                <button id="editNoteButton" type="submit" class="btn btn-success"
                                         th:onclick="javascript:showNoteModal([[${note.noteId}]], [[${note.noteTitle}]], [[${note.noteDescription}]])">
                                     Edit
                                 </button>

@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.pages;
 
+import com.udacity.jwdnd.course1.cloudstorage.data.Note;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -31,12 +32,23 @@ public class HomePage extends AbstractPage {
         click("nav-notes-tab");
     }
 
-    public void addNewNote(String noteTitle, String noteDescription) {
+    public void addNewNote(Note note) {
         click("addNewNoteButton");
 
-        setInputText(noteTitle, "note-title");
-        setInputText(noteDescription, "note-description");
+        setInputText(note.getNoteTitle(), "note-title");
+        setInputText(note.getNoteDescription(), "note-description");
 
         click("noteSubmit");
+    }
+
+    public void clickOnEditNoteButton() {
+        click("editNoteButton");
+    }
+
+    public Note getFirstNote() {
+        return new Note(
+                getInputText("note-title"),
+                getInputText("note-description")
+        );
     }
 }

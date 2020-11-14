@@ -35,4 +35,9 @@ public abstract class AbstractPage {
         WebElement webElement = getWebDriver().findElement(By.id(elementId));
         ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].click();", webElement);
     }
+
+    String getInputText(String elementId) {
+        WebElement webElement = getWebDriver().findElement(By.id(elementId));
+        return webElement.getAttribute("value");
+    }
 }

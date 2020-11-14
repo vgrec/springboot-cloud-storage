@@ -6,10 +6,17 @@ public class Note {
     private String noteTitle;
     private String noteDescription;
 
-    public Note(Integer userId, String noteTitle, String noteDescription) {
-        this.userId = userId;
+    public Note() {
+    }
+
+    public Note(String noteTitle, String noteDescription) {
         this.noteTitle = noteTitle;
         this.noteDescription = noteDescription;
+    }
+
+    public Note(Integer userId, String noteTitle, String noteDescription) {
+        this(noteTitle, noteDescription);
+        this.userId = userId;
     }
 
     public void setNoteId(Integer noteId) {

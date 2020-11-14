@@ -1,7 +1,9 @@
 package com.udacity.jwdnd.course1.cloudstorage.tests;
 
+import com.udacity.jwdnd.course1.cloudstorage.data.Note;
 import com.udacity.jwdnd.course1.cloudstorage.pages.HomePage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
+import com.udacity.jwdnd.course1.cloudstorage.pages.ResultPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.SignupPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
@@ -13,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 import java.util.UUID;
+
+import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class NotesTest {
@@ -40,18 +44,21 @@ public class NotesTest {
         driver.get("http://localhost:" + port + "/login");
         signupNewUserAndLogin();
 
+        ResultPage resultPage = new ResultPage(driver);
         HomePage homePage = new HomePage(driver);
         homePage.clickOnNotesTab();
 
-        homePage.addNewNote("Note title", "Note description");
+        Note newNote = new Note("Note title", "Note description");
 
+        homePage.addNewNote(newNote);
+        resultPage.goToHomePage();
+        homePage.clickOnNotesTab();
+        homePage.clickOnEditNoteButton();
 
+        Note firstNote = homePage.getFirstNote();
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        assertEquals("Note title does not match", newNote.getNoteTitle(), firstNote.getNoteTitle());
+        assertEquals("Note description does not match", newNote.getNoteDescription(), firstNote.getNoteDescription());
     }
 
     private void signupNewUserAndLogin() {
