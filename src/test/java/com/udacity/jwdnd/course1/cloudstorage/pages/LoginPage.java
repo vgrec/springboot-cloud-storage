@@ -2,13 +2,9 @@ package com.udacity.jwdnd.course1.cloudstorage.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends AbstractPage {
-    @FindBy(id = "signupLink")
-    private WebElement singupLink;
 
     private WebDriver webDriver;
 
@@ -31,6 +27,12 @@ public class LoginPage extends AbstractPage {
     }
 
     public void goToSignupPage() {
-        singupLink.click();
+        click("signupLink");
+    }
+
+    public void login(String randomUserName, String password) {
+        setInputText(randomUserName, "inputUsername");
+        setInputText(password, "inputPassword");
+        click("loginButton");
     }
 }

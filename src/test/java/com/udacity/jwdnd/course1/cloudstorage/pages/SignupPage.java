@@ -26,18 +26,16 @@ public class SignupPage extends AbstractPage {
         return webDriver;
     }
 
-    public void signupNewUser(String userName) {
-        webDriver.findElement(By.id("inputFirstName")).sendKeys("First name");
-        webDriver.findElement(By.id("inputLastName")).sendKeys("Last name");
-        webDriver.findElement(By.id("inputUsername")).sendKeys(userName);
-        webDriver.findElement(By.id("inputPassword")).sendKeys("1");
+    public void signupNewUser(String userName, String password) {
+        setInputText("Test First Name", "inputFirstName");
+        setInputText("Test Last Name", "inputLastName");
+        setInputText(userName, "inputUsername");
+        setInputText(password, "inputPassword");
 
-        webDriver.findElement(By.id("signupButton")).click();
+        click("signupButton");
+    }
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void goToLoginPage() {
+        click("loginLink");
     }
 }

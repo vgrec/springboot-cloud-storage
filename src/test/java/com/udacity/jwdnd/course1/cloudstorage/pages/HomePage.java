@@ -22,4 +22,8 @@ public class HomePage extends AbstractPage {
     WebDriver getWebDriver() {
         return webDriver;
     }
+
+    public void logout() {
+        click("logoutButton");
+    }
 }

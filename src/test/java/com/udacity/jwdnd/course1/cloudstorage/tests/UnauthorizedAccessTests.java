@@ -24,6 +24,7 @@ public class UnauthorizedAccessTests {
 
     private static WebDriver driver;
     private static String randomUserName;
+    private static String password = "test";
 
     @BeforeAll
     static void setUp() {
@@ -68,9 +69,20 @@ public class UnauthorizedAccessTests {
         assertTrue("Login page should be displayed", loginPage.isPageDisplayed());
 
         loginPage.goToSignupPage();
-        signupPage.signupNewUser(randomUserName);
+        signupPage.signupNewUser(randomUserName, password);
+
+        signupPage.goToLoginPage();
+        loginPage.login(randomUserName, password);
 
         assertTrue("Home page should be displayed", homePage.isPageDisplayed());
+
+        homePage.logout();
+        assertTrue("Login page should be displayed", loginPage.isPageDisplayed());
+
+        driver.get("http://localhost:" + port + "/home");
+
+        assertFalse("Home page should not be displayed", homePage.isPageDisplayed());
+        assertTrue("Login page should be displayed", loginPage.isPageDisplayed());
     }
 
 }
