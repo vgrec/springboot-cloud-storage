@@ -89,7 +89,7 @@
                                 <form th:action="@{/note/delete}" th:object="${note}" action="#"
                                       method="post">
                                     <input type="hidden" name="noteId" th:value="*{noteId}">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button id="deleteNoteButton" type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
                             <th scope="row" th:text="${note.noteTitle}">Example Note Title</th>

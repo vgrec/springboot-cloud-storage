@@ -58,4 +58,15 @@ public class HomePage extends AbstractPage {
                 getInputText("note-description")
         );
     }
+
+    public void deleteFirstNote() {
+        click("deleteNoteButton");
+    }
+
+    public boolean isFirstNoteDisplayed() {
+        // If the Edit or the Delete buttons are present,
+        // this means the note itself is present.
+        return isElementDisplayed(By.id("editNoteButton"))
+                || isElementDisplayed(By.id("deleteNoteButton"));
+    }
 }

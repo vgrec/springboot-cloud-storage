@@ -15,6 +15,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import java.util.UUID;
 
 import static org.springframework.test.util.AssertionErrors.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertFalse;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -112,9 +113,26 @@ public class NotesTest {
         assertEquals("Note description does not match", note.getNoteDescription(), firstNote.getNoteDescription());
     }
 
-    //    @Test
+    @Test
     void testRemoveNote() {
+        driver.get("http://localhost:" + port + "/login");
 
+        signupNewUserAndLogin();
+
+        // Insert new note
+        homePage.clickOnNotesTab();
+        Note note = createNote();
+        homePage.addNote(note);
+        resultPage.goToHomePage();
+        homePage.clickOnNotesTab();
+
+        // Remove note
+        homePage.deleteFirstNote();
+        resultPage.goToHomePage();
+        homePage.clickOnNotesTab();
+
+        assertFalse("First note should not be displayed because it was deleted.",
+                homePage.isFirstNoteDisplayed());
     }
 
     private Note createNote() {
