@@ -50,9 +50,11 @@ public class NotesTest {
         homePage.clickOnNotesTab();
 
         Note newNote = createNote();
+        homePage.addNote(newNote);
+        resultPage.goToHomePage();
+        homePage.clickOnNotesTab();
 
-        insertNoteAndReturnToHome(resultPage, homePage, newNote);
-
+        homePage.clickOnEditNoteButton();
         Note firstNote = homePage.getFirstNote();
 
         assertEquals("Note title does not match", newNote.getNoteTitle(), firstNote.getNoteTitle());
@@ -93,10 +95,6 @@ public class NotesTest {
 
     private Note createNote() {
         return new Note("Note title", "Note description");
-    }
-
-    private void insertNoteAndReturnToHome(ResultPage resultPage, HomePage homePage, Note newNote) {
-
     }
 
     private void signupNewUserAndLogin() {
