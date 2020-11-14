@@ -1,8 +1,10 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.Utils;
+import com.udacity.jwdnd.course1.cloudstorage.data.User;
 import com.udacity.jwdnd.course1.cloudstorage.data.forms.CredentialForm;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,12 +21,14 @@ public class CredentialController {
     }
 
     @PostMapping("/createOrEdit")
-    public String createOrEditCredential(CredentialForm credentialForm, Model model) {
+    public String createOrEditCredential(CredentialForm credentialForm, Model model, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+
         if (credentialForm.getCredentialId() == null) {
-            int id = credentialService.insertCredential(credentialForm, 1);
+            int id = credentialService.insertCredential(credentialForm, user.getUserId());
             Utils.setResult(model, id >= 0, "Could not insert credential.");
         } else {
-            int affectedRows = credentialService.updateCredential(credentialForm, 1);
+            int affectedRows = credentialService.updateCredential(credentialForm, user.getUserId());
             Utils.setResult(model, affectedRows > 0, "Could not update credential.");
         }
 

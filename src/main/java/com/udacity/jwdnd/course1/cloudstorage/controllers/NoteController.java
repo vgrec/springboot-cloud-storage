@@ -2,7 +2,9 @@ package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.Utils;
 import com.udacity.jwdnd.course1.cloudstorage.data.Note;
+import com.udacity.jwdnd.course1.cloudstorage.data.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +20,11 @@ public class NoteController {
     }
 
     @PostMapping("/createOrEdit")
-    public String createOrEditNote(Note note, Model model) {
+    public String createOrEditNote(Note note, Model model, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+
         if (note.getNoteId() == null) {
-            int id = noteService.insertNote(note, 1);
+            int id = noteService.insertNote(note, user.getUserId());
             Utils.setResult(model, id >= 0, "Could not insert note.");
         } else {
             int affectedRows = noteService.updateNote(note);
