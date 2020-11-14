@@ -28,7 +28,7 @@ public abstract class AbstractPage {
         WebDriverWait wait = new WebDriverWait(getWebDriver(), 10);
         wait.until(ExpectedConditions.visibilityOf(webElement));
 
-        ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].setAttribute('value', '" + text + "');", webElement);
+        ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].value='" + text + "';", webElement);
     }
 
     void click(String elementId) {

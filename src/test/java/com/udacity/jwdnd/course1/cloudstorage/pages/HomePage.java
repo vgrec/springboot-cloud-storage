@@ -36,6 +36,7 @@ public class HomePage extends AbstractPage {
 
         setInputText(noteTitle, "note-title");
         setInputText(noteDescription, "note-description");
+
         click("noteSubmit");
     }
 }
