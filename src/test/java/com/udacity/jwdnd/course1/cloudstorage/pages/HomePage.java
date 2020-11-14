@@ -32,9 +32,16 @@ public class HomePage extends AbstractPage {
         click("nav-notes-tab");
     }
 
-    public void addNewNote(Note note) {
+    public void addNote(Note note) {
         click("addNewNoteButton");
 
+        setInputText(note.getNoteTitle(), "note-title");
+        setInputText(note.getNoteDescription(), "note-description");
+
+        click("noteSubmit");
+    }
+
+    public void updateNote(Note note) {
         setInputText(note.getNoteTitle(), "note-title");
         setInputText(note.getNoteDescription(), "note-description");
 

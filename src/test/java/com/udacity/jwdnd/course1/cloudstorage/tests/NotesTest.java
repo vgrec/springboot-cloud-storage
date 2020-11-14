@@ -42,23 +42,61 @@ public class NotesTest {
     @Test
     void testCreateNote() {
         driver.get("http://localhost:" + port + "/login");
+
         signupNewUserAndLogin();
 
         ResultPage resultPage = new ResultPage(driver);
         HomePage homePage = new HomePage(driver);
         homePage.clickOnNotesTab();
 
-        Note newNote = new Note("Note title", "Note description");
+        Note newNote = createNote();
 
-        homePage.addNewNote(newNote);
-        resultPage.goToHomePage();
-        homePage.clickOnNotesTab();
-        homePage.clickOnEditNoteButton();
+        insertNoteAndReturnToHome(resultPage, homePage, newNote);
 
         Note firstNote = homePage.getFirstNote();
 
         assertEquals("Note title does not match", newNote.getNoteTitle(), firstNote.getNoteTitle());
         assertEquals("Note description does not match", newNote.getNoteDescription(), firstNote.getNoteDescription());
+    }
+
+    @Test
+    void testEditNote() throws InterruptedException {
+        driver.get("http://localhost:" + port + "/login");
+
+        ResultPage resultPage = new ResultPage(driver);
+        HomePage homePage = new HomePage(driver);
+
+        signupNewUserAndLogin();
+
+        // Insert new note
+        homePage.clickOnNotesTab();
+        Note note = createNote();
+        homePage.addNote(note);
+        resultPage.goToHomePage();
+        homePage.clickOnNotesTab();
+
+        // Change note details
+        note.setNoteTitle("Note title edited");
+        note.setNoteDescription("Note description edited");
+        homePage.clickOnEditNoteButton();
+        homePage.updateNote(note);
+        resultPage.goToHomePage();
+        homePage.clickOnNotesTab();
+
+        // Read the values
+        homePage.clickOnEditNoteButton();
+        Note firstNote = homePage.getFirstNote();
+
+        assertEquals("Note title does not match", note.getNoteTitle(), firstNote.getNoteTitle());
+        assertEquals("Note description does not match", note.getNoteDescription(), firstNote.getNoteDescription());
+    }
+
+    private Note createNote() {
+        return new Note("Note title", "Note description");
+    }
+
+    private void insertNoteAndReturnToHome(ResultPage resultPage, HomePage homePage, Note newNote) {
+
     }
 
     private void signupNewUserAndLogin() {
