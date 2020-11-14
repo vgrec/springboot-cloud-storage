@@ -16,23 +16,33 @@ import java.util.UUID;
 
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class NotesTest {
     @LocalServerPort
     private Integer port;
 
-    private static WebDriver driver;
-    private static String randomUserName;
-    private static String password = "test";
+    private WebDriver driver;
+    private String randomUserName;
+
+    private ResultPage resultPage;
+    private HomePage homePage;
+    private LoginPage loginPage;
+    private SignupPage signupPage;
 
     @BeforeAll
-    static void setUp() {
+    void beforeAll() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+
+        resultPage = new ResultPage(driver);
+        homePage = new HomePage(driver);
+        loginPage = new LoginPage(driver);
+        signupPage = new SignupPage(driver);
     }
 
     @AfterAll
-    static void tearDown() {
+    void afterAll() {
         driver.quit();
     }
 
@@ -43,28 +53,29 @@ public class NotesTest {
 
     @AfterEach
     void afterEach() {
-        HomePage homePage = new HomePage(driver);
+        logout();
+    }
+
+    private void logout() {
         if (homePage.isPageDisplayed()) {
             homePage.logout();
         }
     }
-
 
     @Test
     void testCreateNote() {
         driver.get("http://localhost:" + port + "/login");
 
         signupNewUserAndLogin();
-
-        ResultPage resultPage = new ResultPage(driver);
-        HomePage homePage = new HomePage(driver);
         homePage.clickOnNotesTab();
 
+        // Insert new note
         Note newNote = createNote();
         homePage.addNote(newNote);
         resultPage.goToHomePage();
         homePage.clickOnNotesTab();
 
+        // Read the values
         homePage.clickOnEditNoteButton();
         Note firstNote = homePage.getFirstNote();
 
@@ -73,11 +84,8 @@ public class NotesTest {
     }
 
     @Test
-    void testEditNote() throws InterruptedException {
+    void testEditNote() {
         driver.get("http://localhost:" + port + "/login");
-
-        ResultPage resultPage = new ResultPage(driver);
-        HomePage homePage = new HomePage(driver);
 
         signupNewUserAndLogin();
 
@@ -104,14 +112,17 @@ public class NotesTest {
         assertEquals("Note description does not match", note.getNoteDescription(), firstNote.getNoteDescription());
     }
 
+    //    @Test
+    void testRemoveNote() {
+
+    }
+
     private Note createNote() {
         return new Note("Note title", "Note description");
     }
 
     private void signupNewUserAndLogin() {
-        LoginPage loginPage = new LoginPage(driver);
-        SignupPage signupPage = new SignupPage(driver);
-
+        String password = "test";
         loginPage.goToSignupPage();
         signupPage.signupNewUser(randomUserName, password);
         signupPage.goToLoginPage();
