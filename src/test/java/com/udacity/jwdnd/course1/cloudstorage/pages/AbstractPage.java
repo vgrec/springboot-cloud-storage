@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPage {
 
@@ -22,6 +24,10 @@ public abstract class AbstractPage {
 
     void setInputText(String text, String elementId) {
         WebElement webElement = getWebDriver().findElement(By.id(elementId));
+
+        WebDriverWait wait = new WebDriverWait(getWebDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOf(webElement));
+
         ((JavascriptExecutor) getWebDriver()).executeScript("arguments[0].setAttribute('value', '" + text + "');", webElement);
     }
 

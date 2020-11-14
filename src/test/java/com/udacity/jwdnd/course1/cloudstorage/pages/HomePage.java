@@ -26,4 +26,16 @@ public class HomePage extends AbstractPage {
     public void logout() {
         click("logoutButton");
     }
+
+    public void clickOnNotesTab() {
+        click("nav-notes-tab");
+    }
+
+    public void addNewNote(String noteTitle, String noteDescription) {
+        click("addNewNoteButton");
+
+        setInputText(noteTitle, "note-title");
+        setInputText(noteDescription, "note-description");
+        click("noteSubmit");
+    }
 }
