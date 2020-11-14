@@ -6,9 +6,7 @@ import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.ResultPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.SignupPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,13 +29,26 @@ public class NotesTest {
     static void setUp() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        randomUserName = UUID.randomUUID().toString();
     }
 
     @AfterAll
     static void tearDown() {
         driver.quit();
     }
+
+    @BeforeEach
+    void beforeEach() {
+        randomUserName = UUID.randomUUID().toString();
+    }
+
+    @AfterEach
+    void afterEach() {
+        HomePage homePage = new HomePage(driver);
+        if (homePage.isPageDisplayed()) {
+            homePage.logout();
+        }
+    }
+
 
     @Test
     void testCreateNote() {
