@@ -97,19 +97,22 @@ public class CredentialTests {
         List<Credential> credentials = homePage.listCredentials();
         assertEquals(2, credentials.size());
 
+        Credential firstCredentialEntered = credentials.get(0);
+        Credential secondCredentialEntered = credentials.get(1);
+
         // Read the credentials from database
-        Credential firstCredentialSaved = credentialService.getCredentialById(1);
-        Credential secondCredentialSaved = credentialService.getCredentialById(2);
+        Credential firstCredentialSaved = credentialService.getCredentialById(firstCredentialEntered.getCredentialId());
+        Credential secondCredentialSaved = credentialService.getCredentialById(secondCredentialEntered.getCredentialId());
 
-        // Compare the first credential with the one retrieved from database
-        assertEquals(credentials.get(0).getUrl(), firstCredentialSaved.getUrl());
-        assertEquals(credentials.get(0).getUsername(), firstCredentialSaved.getUsername());
-        assertEquals(credentials.get(0).getPassword(), firstCredentialSaved.getPassword());
+        // Compare the first entered credential with the one retrieved from database
+        assertEquals(firstCredentialEntered.getUrl(), firstCredentialSaved.getUrl());
+        assertEquals(firstCredentialEntered.getUsername(), firstCredentialSaved.getUsername());
+        assertEquals(firstCredentialEntered.getPassword(), firstCredentialSaved.getPassword());
 
-        // Compare the second credential with the one retrieved from database
-        assertEquals(credentials.get(1).getUrl(), secondCredentialSaved.getUrl());
-        assertEquals(credentials.get(1).getUsername(), secondCredentialSaved.getUsername());
-        assertEquals(credentials.get(1).getPassword(), secondCredentialSaved.getPassword());
+        // Compare the second entered credential with the one retrieved from database
+        assertEquals(secondCredentialEntered.getUrl(), secondCredentialSaved.getUrl());
+        assertEquals(secondCredentialEntered.getUsername(), secondCredentialSaved.getUsername());
+        assertEquals(secondCredentialEntered.getPassword(), secondCredentialSaved.getPassword());
     }
 
     @Test

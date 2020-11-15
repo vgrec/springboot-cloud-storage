@@ -99,8 +99,10 @@ public class HomePage extends AbstractPage {
             System.out.println("url: " + getInnerText(row, "credentialUrl"));
             System.out.println("user: " + getInnerText(row, "credentialUsername"));
             System.out.println("pass: " + getInnerText(row, "credentialPassword"));
+            System.out.println("id: " + getInputText(row, "credentialId"));
 
             Credential credential = new Credential();
+            credential.setCredentialId(Integer.valueOf(getInputText(row, "credentialId")));
             credential.setUrl(getInnerText(row, "credentialUrl"));
             credential.setUsername(getInnerText(row, "credentialUsername"));
             credential.setPassword(getInnerText(row, "credentialPassword"));

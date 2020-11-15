@@ -41,6 +41,11 @@ public abstract class AbstractPage {
         return webElement.getAttribute("value");
     }
 
+    String getInputText(WebElement parentElement, String elementId) {
+        WebElement webElement = parentElement.findElement(By.id(elementId));
+        return webElement.getAttribute("value");
+    }
+
     String getInnerText(WebElement parentElement, String innerElement) {
         WebElement webElement = parentElement.findElement(By.id(innerElement));
         return webElement.getAttribute("innerHTML");

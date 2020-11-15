@@ -165,7 +165,7 @@
                                 </button>
                                 <form th:action="@{/credential/delete}" th:object="${credential}" action="#"
                                       method="post">
-                                    <input type="hidden" name="credentialId" th:value="*{credentialId}">
+                                    <input id="credentialId" type="hidden" name="credentialId" th:value="*{credentialId}">
                                     <button id="deleteCredentialButton" type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
