@@ -41,7 +41,11 @@ public class UploadFileService {
         return uploadFileMapper.delete(fileId);
     }
 
-    public UploadFile getFileById(int fileId){
+    public UploadFile getFileById(int fileId) {
         return uploadFileMapper.getFileById(fileId);
+    }
+
+    public boolean fileNameAlreadyExists(String fileName, int userId) {
+        return uploadFileMapper.countFilesByName(fileName, userId) > 0;
     }
 }

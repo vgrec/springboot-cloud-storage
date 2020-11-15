@@ -31,9 +31,15 @@ public class UploadFileController {
     @PostMapping("/upload")
     public String uploadFile(MultipartFile uploadFile, Model model, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
+        Integer userId = user.getUserId();
 
-        int id = uploadFileService.insert(uploadFile, user.getUserId());
-        Utils.setResult(model, id >= 0, "Could not upload file.");
+        String filename = uploadFile.getOriginalFilename();
+        if (uploadFileService.fileNameAlreadyExists(filename, userId)) {
+            Utils.setResult(model, false, "File with name: " + filename + " already exists.");
+        } else {
+            int id = uploadFileService.insert(uploadFile, userId);
+            Utils.setResult(model, id >= 0, "Could not upload file.");
+        }
 
         return "/result";
     }

@@ -14,6 +14,9 @@ public interface UploadFileMapper {
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId}")
     UploadFile getFileById(int fileId);
 
+    @Select("SELECT COUNT(fileName) FROM FILES WHERE fileName = #{fileName} AND userId = #{userId}")
+    int countFilesByName(String fileName, int userId);
+
     @Insert("INSERT INTO FILES (fileId, userId, contentType, fileName, fileData, fileSize) VALUES (" +
             "#{fileId}, #{userId}, #{contentType}, #{fileName}, #{fileData}, #{fileSize}" +
             ")")
