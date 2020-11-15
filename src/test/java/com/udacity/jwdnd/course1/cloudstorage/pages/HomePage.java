@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.pages;
 
+import com.udacity.jwdnd.course1.cloudstorage.data.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.data.Note;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -68,5 +69,19 @@ public class HomePage extends AbstractPage {
         // this means the note itself is present.
         return isElementDisplayed(By.id("editNoteButton"))
                 || isElementDisplayed(By.id("deleteNoteButton"));
+    }
+
+    public void clickOnCredentialsTab() {
+        click("nav-credentials-tab");
+    }
+
+    public void addCredential(Credential credential) {
+        click("addCredentialButton");
+
+        setInputText(credential.getUrl(), "credential-url");
+        setInputText(credential.getUsername(), "credential-username");
+        setInputText(credential.getPassword(), "credential-password");
+
+        click("credentialSubmit");
     }
 }

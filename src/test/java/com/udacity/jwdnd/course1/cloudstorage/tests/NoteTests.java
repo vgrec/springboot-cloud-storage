@@ -19,7 +19,7 @@ import static org.springframework.test.util.AssertionErrors.assertFalse;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class NotesTest {
+public class NoteTests {
     @LocalServerPort
     private Integer port;
 
