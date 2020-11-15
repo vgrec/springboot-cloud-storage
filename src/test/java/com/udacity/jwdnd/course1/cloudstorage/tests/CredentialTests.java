@@ -117,7 +117,48 @@ public class CredentialTests {
 
     @Test
     void testEditCredential() {
+        driver.get("http://localhost:" + port + "/login");
 
+        signupNewUserAndLogin();
+        homePage.clickOnCredentialsTab();
+
+        // Insert credential
+        Credential credential = new Credential();
+        credential.setUrl("http://google.com");
+        credential.setUsername("test");
+        credential.setPassword("google");
+        homePage.addCredential(credential);
+        resultPage.goToHomePage();
+        homePage.clickOnCredentialsTab();
+
+        // Read the list of credentials and check the size is 1
+        List<Credential> credentials = homePage.listCredentials();
+        assertEquals(1, credentials.size());
+
+        // Read the values
+        homePage.clickOnEditCredentialButton();
+        Credential firstCredential = homePage.getFirstCredential();
+
+        // Check this is what the user entered previously
+        assertEquals(credential.getUrl(), firstCredential.getUrl());
+        assertEquals(credential.getUsername(), firstCredential.getUsername());
+        assertEquals(credential.getPassword(), firstCredential.getPassword());
+
+        // Update the credential
+        credential.setUrl("http://facebook.com");
+        credential.setUsername("demo");
+        credential.setPassword("demo");
+        homePage.updateCredential(credential);
+        resultPage.goToHomePage();
+        homePage.clickOnCredentialsTab();
+
+        // Check after editing the list of credentials is still 1
+        List<Credential> editedCredentials = homePage.listCredentials();
+        assertEquals(1, editedCredentials.size());
+
+        // Check the changes are displayed
+        assertEquals(editedCredentials.get(0).getUrl(), credential.getUrl());
+        assertEquals(editedCredentials.get(0).getUsername(), credential.getUsername());
     }
 
     @Test
@@ -128,11 +169,11 @@ public class CredentialTests {
         homePage.clickOnCredentialsTab();
 
         // Insert credential
-        Credential firstCredential = new Credential();
-        firstCredential.setUrl("http://google.com");
-        firstCredential.setUsername("test");
-        firstCredential.setPassword("google");
-        homePage.addCredential(firstCredential);
+        Credential credential = new Credential();
+        credential.setUrl("http://google.com");
+        credential.setUsername("test");
+        credential.setPassword("google");
+        homePage.addCredential(credential);
         resultPage.goToHomePage();
         homePage.clickOnCredentialsTab();
 
@@ -145,7 +186,7 @@ public class CredentialTests {
         homePage.clickOnCredentialsTab();
 
         // Read the list of credentials and check the size is 0
-        // because previously inserted credential was remoted
+        // because previously inserted credential was removed
         credentials = homePage.listCredentials();
         assertEquals(0, credentials.size());
     }

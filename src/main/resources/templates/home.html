@@ -155,7 +155,7 @@
                         <tbody id="credentialsTableBody">
                         <tr th:each="credential: ${credentials}">
                             <td>
-                                <button type="button" class="btn btn-success"
+                                <button id="editCredentialButton" type="button" class="btn btn-success"
                                         th:onclick="javascript:showCredentialModal(
                                         [[${credential.credentialId}]],
                                         [[${credential.url}]],

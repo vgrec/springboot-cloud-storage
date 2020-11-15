@@ -116,4 +116,25 @@ public class HomePage extends AbstractPage {
     public void deleteFirstCredential() {
         click("deleteCredentialButton");
     }
+
+    public void clickOnEditCredentialButton() {
+        click("editCredentialButton");
+    }
+
+    public void updateCredential(Credential credential) {
+        setInputText(credential.getUrl(), "credential-url");
+        setInputText(credential.getUsername(), "credential-username");
+        setInputText(credential.getPassword(), "credential-password");
+
+        click("credentialSubmit");
+    }
+
+    public Credential getFirstCredential() {
+        Credential credential = new Credential();
+        credential.setUrl(getInputText("credential-url"));
+        credential.setUsername(getInputText("credential-username"));
+        credential.setPassword(getInputText("credential-password"));
+
+        return credential;
+    }
 }
