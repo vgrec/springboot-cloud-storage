@@ -1,7 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.tests;
 
 import com.udacity.jwdnd.course1.cloudstorage.data.Credential;
-import com.udacity.jwdnd.course1.cloudstorage.data.Note;
 import com.udacity.jwdnd.course1.cloudstorage.pages.HomePage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.ResultPage;
@@ -70,7 +69,7 @@ public class CredentialTests {
     }
 
     @Test
-    void testCreateNote() {
+    void testCreateCredential() {
         driver.get("http://localhost:" + port + "/login");
 
         signupNewUserAndLogin();
@@ -114,17 +113,38 @@ public class CredentialTests {
     }
 
     @Test
-    void testEditNote() {
+    void testEditCredential() {
 
     }
 
     @Test
-    void testRemoveNote() {
+    void testRemoveCredential() {
+        driver.get("http://localhost:" + port + "/login");
 
-    }
+        signupNewUserAndLogin();
+        homePage.clickOnCredentialsTab();
 
-    private Note createNote() {
-        return new Note("Note title", "Note description");
+        // Insert credential
+        Credential firstCredential = new Credential();
+        firstCredential.setUrl("http://google.com");
+        firstCredential.setUsername("test");
+        firstCredential.setPassword("google");
+        homePage.addCredential(firstCredential);
+        resultPage.goToHomePage();
+        homePage.clickOnCredentialsTab();
+
+        // Read the list of credentials and check the size is 1
+        List<Credential> credentials = homePage.listCredentials();
+        assertEquals(1, credentials.size());
+
+        homePage.deleteFirstCredential();
+        resultPage.goToHomePage();
+        homePage.clickOnCredentialsTab();
+
+        // Read the list of credentials and check the size is 0
+        // because previously inserted credential was remoted
+        credentials = homePage.listCredentials();
+        assertEquals(0, credentials.size());
     }
 
     private void signupNewUserAndLogin() {

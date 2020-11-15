@@ -110,4 +110,8 @@ public class HomePage extends AbstractPage {
 
         return credentials;
     }
+
+    public void deleteFirstCredential() {
+        click("deleteCredentialButton");
+    }
 }

@@ -166,7 +166,7 @@
                                 <form th:action="@{/credential/delete}" th:object="${credential}" action="#"
                                       method="post">
                                     <input type="hidden" name="credentialId" th:value="*{credentialId}">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button id="deleteCredentialButton" type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
                             <th id="credentialUrl" th:text="${credential.url}" scope="row">Example Credential URL</th>
