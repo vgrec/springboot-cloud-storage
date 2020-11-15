@@ -40,4 +40,10 @@ public abstract class AbstractPage {
         WebElement webElement = getWebDriver().findElement(By.id(elementId));
         return webElement.getAttribute("value");
     }
+
+    String getInnerText(WebElement parentElement, String innerElement) {
+        WebElement webElement = parentElement.findElement(By.id(innerElement));
+        return webElement.getAttribute("innerHTML");
+    }
+
 }

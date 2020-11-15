@@ -4,6 +4,10 @@ import com.udacity.jwdnd.course1.cloudstorage.data.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.data.Note;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePage extends AbstractPage {
     private WebDriver webDriver;
@@ -83,5 +87,27 @@ public class HomePage extends AbstractPage {
         setInputText(credential.getPassword(), "credential-password");
 
         click("credentialSubmit");
+    }
+
+    public List<Credential> listCredentials() {
+        List<Credential> credentials = new ArrayList<>();
+
+        WebElement body = getWebDriver().findElement(By.id("credentialsTableBody"));
+        List<WebElement> rows = body.findElements(By.tagName("tr"));
+
+        for (WebElement row : rows) {
+            System.out.println("url: " + getInnerText(row, "credentialUrl"));
+            System.out.println("user: " + getInnerText(row, "credentialUsername"));
+            System.out.println("pass: " + getInnerText(row, "credentialPassword"));
+
+            Credential credential = new Credential();
+            credential.setUrl(getInnerText(row, "credentialUrl"));
+            credential.setUsername(getInnerText(row, "credentialUsername"));
+            credential.setPassword(getInnerText(row, "credentialPassword"));
+
+            credentials.add(credential);
+        }
+
+        return credentials;
     }
 }

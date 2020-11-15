@@ -152,7 +152,7 @@
                             <th style="width: 25%" scope="col">Password</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="credentialsTableBody">
                         <tr th:each="credential: ${credentials}">
                             <td>
                                 <button type="button" class="btn btn-success"
@@ -169,9 +169,9 @@
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
-                            <th th:text="${credential.url}" scope="row">Example Credential URL</th>
-                            <td th:text="${credential.username}">Example Credential Username</td>
-                            <td th:text="${credential.password}">Example Credential Password</td>
+                            <th id="credentialUrl" th:text="${credential.url}" scope="row">Example Credential URL</th>
+                            <td id="credentialUsername" th:text="${credential.username}">Example Credential Username</td>
+                            <td id="credentialPassword" th:text="${credential.password}">Example Credential Password</td>
                         </tr>
                         </tbody>
                     </table>
@@ -249,6 +249,7 @@
                 $('#credential-password').val(password ? password : '');
                 $('#credentialModal').modal('show');
             }
+
 
 
 
