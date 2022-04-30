@@ -13,12 +13,10 @@ import java.util.ArrayDeque;
 @Service
 public class AuthenticationService implements AuthenticationProvider {
 
-    private UserMapper userMapper;
-    private HashService hashService;
+    private AuthenticationFacade authenticationFacade;
 
-    public AuthenticationService(UserMapper userMapper, HashService hashService) {
-        this.userMapper = userMapper;
-        this.hashService = hashService;
+    public AuthenticationService(AuthenticationFacade authenticationFacade) {
+        this.authenticationFacade = authenticationFacade;
     }
 
     @Override
@@ -28,10 +26,10 @@ public class AuthenticationService implements AuthenticationProvider {
 
         System.out.println("Authenticate: " + username + ":" + password);
 
-        User user = userMapper.getUser(username);
-        if (user != null) {
-            String hashedPassword = hashService.getHashedValue(password, user.getSalt());
-            if (user.getPassword().equals(hashedPassword)) {
+        if (authenticationFacade.isUserInDatabase(username)) {
+            User user = authenticationFacade.getUser(username);
+
+            if (authenticationFacade.isAuthenticationSuccessful(username, password)) {
                 return new UsernamePasswordAuthenticationToken(
                         user,
                         password,
