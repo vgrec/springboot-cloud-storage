@@ -26,13 +26,13 @@ public class UserService {
 
 
         return userMapper.insert(
-                new User(null,
-                        user.getUsername(),
-                        encodedSalt,
-                        hashedPassword,
-                        user.getFirstName(),
-                        user.getLastName()
-                )
+                new User.Builder()
+                .setUsername(user.getUsername())
+                .setSalt(encodedSalt)
+                .setPassword(hashedPassword)
+                .setFirstName(user.getFirstName())
+                .setLastName(user.getLastName())
+                .build()
         );
     }
 }
