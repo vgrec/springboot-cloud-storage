@@ -23,6 +23,14 @@ public class NoteController {
     public String createOrEditNote(Note note, Model model, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
 
+        NoteValidatorStrategy noteValidatorStrategy = new NoteValidatorStrategy(note);
+        UserDataValidatorStrategy validatorStrategy = new UserDataValidatorStrategy(noteValidatorStrategy);
+
+        if (!validatorStrategy.isValid()){
+            Utils.setResult(model, false, "Invalid note: please provide at least a title.");
+            return "/result";
+        }
+
         if (note.getNoteId() == null) {
             int id = noteService.insertNote(note, user.getUserId());
             Utils.setResult(model, id >= 0, "Could not insert note.");

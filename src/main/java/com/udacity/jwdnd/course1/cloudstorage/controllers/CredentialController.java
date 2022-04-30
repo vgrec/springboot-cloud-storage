@@ -24,6 +24,15 @@ public class CredentialController {
     public String createOrEditCredential(CredentialForm credentialForm, Model model, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
 
+        CredentialValidatorStrategy noteValidatorStrategy = new CredentialValidatorStrategy(credentialForm);
+
+        UserDataValidatorStrategy validatorStrategy = new UserDataValidatorStrategy(noteValidatorStrategy);
+
+        if (!validatorStrategy.isValid()){
+            Utils.setResult(model, false, "Could not insert credential.");
+            return "/result";
+        }
+
         if (credentialForm.getCredentialId() == null) {
             int id = credentialService.insertCredential(credentialForm, user.getUserId());
             Utils.setResult(model, id >= 0, "Could not insert credential.");
