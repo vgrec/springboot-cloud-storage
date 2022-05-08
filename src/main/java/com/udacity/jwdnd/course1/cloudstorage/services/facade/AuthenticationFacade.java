@@ -5,6 +5,9 @@ import com.udacity.jwdnd.course1.cloudstorage.mappers.UserMapper;
 import com.udacity.jwdnd.course1.cloudstorage.services.HashService;
 import org.springframework.stereotype.Component;
 
+/**
+ * The authentication facade is responsible for providing authentication related operations.
+ */
 @Component
 public class AuthenticationFacade {
 

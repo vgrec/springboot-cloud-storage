@@ -1,5 +1,9 @@
 package com.udacity.jwdnd.course1.cloudstorage.data.builder;
 
+/**
+ * The Builder patterns allows for flexible object creation,
+ * i.e: you don't need to define multiple constructors in case some of the user properties are optional.
+ */
 public class User {
     private Integer userId;
     private String username;
@@ -69,7 +73,7 @@ public class User {
         private String firstName;
         private String lastName;
 
-        public Builder setUsername(String username){
+        public Builder setUsername(String username) {
             this.username = username;
             return this;
         }
@@ -99,8 +103,8 @@ public class User {
             return this;
         }
 
-        public User build(){
-            return  new User(userId,
+        public User build() {
+            return new User(userId,
                     username,
                     salt,
                     password,

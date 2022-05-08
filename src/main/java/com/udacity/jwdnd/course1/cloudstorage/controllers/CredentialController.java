@@ -2,7 +2,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.Utils;
 import com.udacity.jwdnd.course1.cloudstorage.controllers.strategy.CredentialValidatorStrategy;
-import com.udacity.jwdnd.course1.cloudstorage.controllers.strategy.UserDataValidatorStrategy;
+import com.udacity.jwdnd.course1.cloudstorage.controllers.strategy.ValidatorStrategy;
 import com.udacity.jwdnd.course1.cloudstorage.data.builder.User;
 import com.udacity.jwdnd.course1.cloudstorage.data.forms.CredentialForm;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
@@ -28,9 +28,7 @@ public class CredentialController {
 
         CredentialValidatorStrategy noteValidatorStrategy = new CredentialValidatorStrategy(credentialForm);
 
-        UserDataValidatorStrategy validatorStrategy = new UserDataValidatorStrategy(noteValidatorStrategy);
-
-        if (!validatorStrategy.isValid()){
+        if (!isValid(noteValidatorStrategy)){
             Utils.setResult(model, false, "Could not insert credential.");
             return "/result";
         }
@@ -52,5 +50,9 @@ public class CredentialController {
         Utils.setResult(model, affectedRows > 0, "Could not delete credential.");
 
         return "/result";
+    }
+
+    private boolean isValid(ValidatorStrategy strategy){
+        return strategy.isValid();
     }
 }

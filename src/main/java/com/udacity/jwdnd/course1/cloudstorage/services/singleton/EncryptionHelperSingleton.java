@@ -8,12 +8,19 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+/**
+ * Only one instance of EncryptionHelperSingleton can exist at time.
+ */
 public class EncryptionHelperSingleton {
 
     private static EncryptionHelperSingleton helper;
 
-    public static EncryptionHelperSingleton getInstance(){
-        if (helper == null){
+    private EncryptionHelperSingleton() {
+        // use EncryptionHelperSingleton.getInstance() to create new instances.
+    }
+
+    public synchronized static EncryptionHelperSingleton getInstance() {
+        if (helper == null) {
             return new EncryptionHelperSingleton();
         }
 
