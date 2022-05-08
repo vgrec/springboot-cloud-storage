@@ -1,6 +1,8 @@
 package com.udacity.jwdnd.course1.cloudstorage.data.forms;
 
-public class CredentialForm {
+import com.udacity.jwdnd.course1.cloudstorage.data.UserData;
+
+public class CredentialForm implements UserData {
     private Integer credentialId;
     private String key;
     private String username;

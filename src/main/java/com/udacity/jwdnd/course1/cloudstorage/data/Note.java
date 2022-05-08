@@ -1,6 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.data;
 
-public class Note {
+public class Note implements UserData{
     private Integer noteId;
     private Integer userId;
     private String noteTitle;

@@ -1,7 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.Utils;
-import com.udacity.jwdnd.course1.cloudstorage.controllers.strategy.NoteValidatorStrategy;
+import com.udacity.jwdnd.course1.cloudstorage.controllers.factorymethod.ValidatorStrategyFactory;
 import com.udacity.jwdnd.course1.cloudstorage.controllers.strategy.ValidatorStrategy;
 import com.udacity.jwdnd.course1.cloudstorage.data.Note;
 import com.udacity.jwdnd.course1.cloudstorage.data.builder.User;
@@ -25,9 +25,9 @@ public class NoteController {
     public String createOrEditNote(Note note, Model model, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
 
-        NoteValidatorStrategy noteValidatorStrategy = new NoteValidatorStrategy(note);
+        ValidatorStrategy validatorStrategy = ValidatorStrategyFactory.createValidatorStrategy(note);
 
-        if (!isValid(noteValidatorStrategy)) {
+        if (!isValid(validatorStrategy)) {
             Utils.setResult(model, false, "Invalid note: please provide at least a title.");
             return "/result";
         }
