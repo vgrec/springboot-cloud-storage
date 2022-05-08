@@ -2,7 +2,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.Utils;
 import com.udacity.jwdnd.course1.cloudstorage.data.UploadFile;
-import com.udacity.jwdnd.course1.cloudstorage.data.User;
+import com.udacity.jwdnd.course1.cloudstorage.data.builder.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.UploadFileService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;

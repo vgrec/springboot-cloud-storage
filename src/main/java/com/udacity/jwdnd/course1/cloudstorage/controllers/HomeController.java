@@ -1,7 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.data.Note;
-import com.udacity.jwdnd.course1.cloudstorage.data.User;
+import com.udacity.jwdnd.course1.cloudstorage.data.builder.User;
 import com.udacity.jwdnd.course1.cloudstorage.data.forms.CredentialForm;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;

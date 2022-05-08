@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
+import com.udacity.jwdnd.course1.cloudstorage.services.singleton.EncryptionHelperSingleton;
 import org.springframework.stereotype.Service;
 
 @Service

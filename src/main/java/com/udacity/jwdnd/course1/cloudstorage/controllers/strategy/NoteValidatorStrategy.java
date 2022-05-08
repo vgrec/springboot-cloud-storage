@@ -1,4 +1,4 @@
-package com.udacity.jwdnd.course1.cloudstorage.controllers;
+package com.udacity.jwdnd.course1.cloudstorage.controllers.strategy;
 
 import com.udacity.jwdnd.course1.cloudstorage.data.Note;
 
@@ -6,7 +6,7 @@ public class NoteValidatorStrategy implements ValidatorStrategy {
 
     private Note note;
 
-    NoteValidatorStrategy(Note note){
+    public NoteValidatorStrategy(Note note){
         this.note = note;
     }
 

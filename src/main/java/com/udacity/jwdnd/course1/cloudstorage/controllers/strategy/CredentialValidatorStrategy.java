@@ -1,13 +1,12 @@
-package com.udacity.jwdnd.course1.cloudstorage.controllers;
+package com.udacity.jwdnd.course1.cloudstorage.controllers.strategy;
 
-import com.udacity.jwdnd.course1.cloudstorage.data.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.data.forms.CredentialForm;
 
 public class CredentialValidatorStrategy implements ValidatorStrategy {
 
     private CredentialForm credential;
 
-    CredentialValidatorStrategy(CredentialForm credential){
+    public CredentialValidatorStrategy(CredentialForm credential){
         this.credential = credential;
     }
 

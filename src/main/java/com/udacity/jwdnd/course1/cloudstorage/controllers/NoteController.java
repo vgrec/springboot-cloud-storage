@@ -1,8 +1,10 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
 import com.udacity.jwdnd.course1.cloudstorage.Utils;
+import com.udacity.jwdnd.course1.cloudstorage.controllers.strategy.NoteValidatorStrategy;
+import com.udacity.jwdnd.course1.cloudstorage.controllers.strategy.UserDataValidatorStrategy;
 import com.udacity.jwdnd.course1.cloudstorage.data.Note;
-import com.udacity.jwdnd.course1.cloudstorage.data.User;
+import com.udacity.jwdnd.course1.cloudstorage.data.builder.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.NoteService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
